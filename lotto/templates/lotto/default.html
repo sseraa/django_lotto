@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- loading django template tag -->
+{% load staticfiles %}
+
+<html lang="ko">
+<head>
+  <title>My Little Lotto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link href="//fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/lotto.css' %}">
+</head>
+
+<body>
+  <div class="page-header">
+
+  <h1>
+  	Selected Lotto Numbers
+    <a href="{% url 'new_lotto' %}"> <!--뒤에오는 name에 해당하는 url 자동으로 되살려줌 -->
+      <!-- glyphicon glyphicon-plus -->
+      <span class="glyphicon glyphicon-upload btn btn-default"></span>
+    </a>
+  </h1>
+
+  </div>
+  <div class="container lotto">
+
+    {% for lotto in lottos %}
+      <h2>
+        <a href="{% url 'detail' lottokey=lotto.pk %}">{{ lotto.text }}</a>
+        <!-- 하드 코딩으로 url 넣기 지양!! url은 언제나 바뀔수 있기 때문이 : 이름으로 넣자! -->
+      </h2>
+      <p>{{ lotto.update_date }}</p>
+      <p>{{ lotto.lottos | linebreaksbr }}</p>
+    {% endfor %}
+
+  </div>
+</body>
+</html>
